@@ -140,7 +140,7 @@ enum
 	REG_FSC2   = 10, // xxH
 };
 
-/* Command definition�� TTable 24. Command Definitions --- ADS1256 datasheet Page 34 */
+/* Command definition Table 24. Command Definitions --- ADS1256 datasheet Page 34 */
 enum
 {
 	CMD_WAKEUP  = 0x00,	// Completes SYNC and Exits Standby Mode 0000  0000 (00h)
@@ -233,7 +233,7 @@ void bsp_InitADS1256(void)
 	DI_0();
 #endif
 
-//ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_1000SPS);	/* ����ADC������ ����1:1, ������������ 1KHz */
+//ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_1000SPS);	/*ADC1:1, 1KHz */
 }
 
 
@@ -250,7 +250,6 @@ void bsp_InitADS1256(void)
 void ADS1256_StartScan(uint8_t _ucScanMode)
 {
 	g_tADS1256.ScanMode = _ucScanMode;
-	/* ��ʼɨ��ǰ, �������������� */
 	{
 		uint8_t i;
 
@@ -520,13 +519,14 @@ static void ADS1256_SetChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ��don��t care��)
+		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are don`t care)
 	*/
 	if (_ch > 7)
 	{
 		return;
 	}
-	ADS1256_WriteReg(REG_MUX, (_ch << 4) | (1 << 3));	/* Bit3 = 1, AINN connection AINCOM */
+	ADS1256_WriteReg(REG_MUX, (_ch << 4) | (1 << 3));
+	//ADS1256_WriteReg(REG_MUX, (_ch << 4) | (0b0001)); //AIN0 positive input and AIN1 negative input.
 }
 
 /*
@@ -549,7 +549,7 @@ static void ADS1256_SetDiffChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are ��don��t care��)
+		1xxx = AINCOM (when PSEL3 = 1, PSEL2, PSEL1, PSEL0 are don' t care)
 
 		NOTE: When using an ADS1255 make sure to only select the available inputs.
 
@@ -562,11 +562,11 @@ static void ADS1256_SetDiffChannal(uint8_t _ch)
 		0101 = AIN5 (ADS1256 only)
 		0110 = AIN6 (ADS1256 only)
 		0111 = AIN7 (ADS1256 only)
-		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are ��don��t care��)
+		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are don' t care)
 	*/
 	if (_ch == 0)
 	{
-		ADS1256_WriteReg(REG_MUX, (0 << 4) | 1);	/* DiffChannal  AIN0�� AIN1 */
+		ADS1256_WriteReg(REG_MUX, (0 << 4) | 1);	/* DiffChannal  AIN0 - AIN1 */
 	}
 	else if (_ch == 1)
 	{
@@ -679,7 +679,8 @@ int32_t ADS1256_GetAdc(uint8_t _ch)
 */
 void ADS1256_ISR(void)
 {
-	if (g_tADS1256.ScanMode == 0)	/*  0  Single-ended input  8 channel�� 1 Differential input  4 channe */
+	//0  Single-ended input  8 channel
+	if (g_tADS1256.ScanMode == 0)	 
 	{
 
 		ADS1256_SetChannal(g_tADS1256.Channel);	/*Switch channel mode */
@@ -705,6 +706,7 @@ void ADS1256_ISR(void)
 			g_tADS1256.Channel = 0;
 		}
 	}
+	//1 Differential input  4 channel
 	else	/*DiffChannal*/
 	{
 
@@ -838,15 +840,19 @@ int  main()
 	{
 		printf("Ok, ASD1256 Chip ID = 0x%d\r\n", (int)id);
 	}
-  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_15SPS);
-       ADS1256_StartScan(0);
-	ch_num = 8;
+  	
+  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_30000SPS);
+    
+    ADS1256_StartScan(1);
+	
+	ch_num = 1;
+	//ch_num = 8 ;
 	//if (ADS1256_Scan() == 0)
 		//{
 			//continue;
 		//}
-		while(1)
-	{
+		while(1){
+
 	       while((ADS1256_Scan() == 0));
 		for (i = 0; i < ch_num; i++)
 		{
@@ -881,4 +887,4 @@ int  main()
     bcm2835_close();
 
     return 0;
-}       
+}
