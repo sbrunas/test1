@@ -21,7 +21,7 @@ Prueba 1 lectura ADC
 #include <string.h>
 #include <math.h>
 #include <errno.h>
-
+#include <stdio.h>
 //CS      -----   SPICS
 //DIN     -----   MOSI
 //DOUT  -----   MISO
@@ -205,9 +205,7 @@ void ADS1256_ISR(void);
 uint8_t ADS1256_Scan(void);
 
 static void ADS1256_SaveData (int32_t udata);
-static void ADS1256_SaveToBuffer (int32_t z, int pos);
-
-
+static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos);
 
 void  bsp_DelayUS(uint64_t micros)
 {
@@ -811,10 +809,12 @@ static void ADS1256_SaveData (int32_t udata){
 *	parameter: udata
 *	The return value:  NULL
 *********************************************************************************************************
-*/
-static void ADS1256_SaveToBuffer (int32_t z, uint32_t size){
-	z_buff[size] = z;
+
+
+static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos){
+	z_buff[pos] = z;
 }
+*/
 /*
 *********************************************************************************************************
 *	name: main
@@ -823,7 +823,6 @@ static void ADS1256_SaveToBuffer (int32_t z, uint32_t size){
 *	The return value:  NULL
 *********************************************************************************************************
 */
-int32_t z_buff[];
 int  main()
 {
     uint8_t id;
@@ -832,11 +831,24 @@ int  main()
 	uint8_t i;
 	uint8_t ch_num;
 	int32_t iTemp;
-	uint32_t size = 0;
 	uint8_t buf[3];
+//Buffer----------------------------------------------------------------
+	uint32_t size = 0;
+	const int datacount = 450000;
+	int32_t *data;
+  	data = malloc(sizeof(int32_t) * datacount); /* allocate memory for 50 int's */
+ 	if (!data) { /* If data == 0 after the call to malloc, allocation failed for some reason */
+    	perror("Error allocating memory");
+    	abort();
+	  }
+  	/* at this point, we know that data points to a valid block of memory.
+     Remember, however, that this memory is not initialized in any way -- it contains garbage.
+     Let's start by clearing it. */
+  	memset(data, 0, sizeof(int32_t)*datacount);
+
     if (!bcm2835_init())
         return 1;
-    //----------------------------------------------------------------------	
+//----------------------------------------------------------------------	
 	FILE *datos1;	
 	datos1 = fopen("ADCdata", "w"); 
 //----------------------------------------------------------------------
@@ -883,9 +895,9 @@ int  main()
 			for (i = 0; i < ch_num; i++) {
 
 	            iTemp = volt[i] ;
-	            ADS1256_SaveToBuffer(iTemp, size) ;
+	            data[size]=iTemp ;
 	            size++ ;
-	            if(size == 450000) {
+	            if(size == datacount) {
 
 	                printf ("buffer is full") ;
 	                bcm2835_spi_end() ;
@@ -898,7 +910,7 @@ int  main()
 		printf("fuera del while, SPI off") ;
 		for (i=0; i < size; i++){
 
-			ADS1256_SaveData(z_buff[i]) ;
+			ADS1256_SaveData(data[i]) ;
 		}
 		fclose(datos1) ;
     	bcm2835_close() ;
