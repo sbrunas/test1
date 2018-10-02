@@ -204,6 +204,8 @@ int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
 uint8_t ADS1256_Scan(void);
 
+static void ADS1256_SaveData (int32_t udata);
+static void ADS1256_SaveToBuffer (int32_t z, int pos);
 
 
 
@@ -787,7 +789,32 @@ uint16_t Voltage_Convert(float Vref, float voltage)
 
 	return _D_;
 }
+/*
+*********************************************************************************************************
+*	name: ADS1256_SaveData
+*	function:  Take iTemp and tranfer to a txt file
+*	parameter: udata
+*	The return value:  NULL
+*********************************************************************************************************
+*/
+static void ADS1256_SaveData (int32_t udata){
+	FILE *datos1;					 // necesary to work with txt files
+	datos1 = fopen("ADCdata", "a+"); //open the txt file in writing mode and write after the last line
+	fprintf(datos1,"%ld\t",udata) ; 	 //se guarda la muetra y se inicia un nueva linea
+	fclose(datos1);					//close the txt file
+}
 
+/*
+*********************************************************************************************************
+*	name: ADS1256_SaveData
+*	function:  Take iTemp and tranfer to a txt file
+*	parameter: udata
+*	The return value:  NULL
+*********************************************************************************************************
+*/
+static void ADS1256_SaveToBuffer (int32_t z, uint32_t size){
+	z_buff[size] = z;
+}
 /*
 *********************************************************************************************************
 *	name: main
@@ -796,24 +823,23 @@ uint16_t Voltage_Convert(float Vref, float voltage)
 *	The return value:  NULL
 *********************************************************************************************************
 */
-
+int32_t z_buff[];
 int  main()
 {
-      uint8_t id;
+    uint8_t id;
   	int32_t adc[8];
 	int32_t volt[8];
 	uint8_t i;
 	uint8_t ch_num;
 	int32_t iTemp;
+	uint32_t size = 0;
 	uint8_t buf[3];
     if (!bcm2835_init())
         return 1;
-/*
-    bcm2835_spi_begin();
-    bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_LSBFIRST );      // The default
-    bcm2835_spi_setDataMode(BCM2835_SPI_MODE1);                   // The default
-    bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024); // The default
-*/
+    //----------------------------------------------------------------------	
+	FILE *datos1;	
+	datos1 = fopen("ADCdata", "w"); 
+//----------------------------------------------------------------------
 
     bcm2835_spi_begin();
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);   //default
@@ -839,51 +865,43 @@ int  main()
 		printf("Ok, ASD1256 Chip ID = 0x%d\r\n", (int)id);
 	}
   	
-  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_30000SPS);
+  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_7500SPS);
     
     ADS1256_StartScan(1);
 	
 	ch_num = 1;
-	//ch_num = 8 ;
-	//if (ADS1256_Scan() == 0)
-		//{
-			//continue;
-		//}
 		while(1){
 
-	       while((ADS1256_Scan() == 0));
-		for (i = 0; i < ch_num; i++)
-		{
-			adc[i] = ADS1256_GetAdc(i);
-              	 volt[i] = (adc[i] * 100) / 167;
-		}
-
-		for (i = 0; i < ch_num; i++)
-		{
-     	              /*  buf[0] = ((uint32_t)adc[i] >> 16) & 0xFF;
-	                buf[1] = ((uint32_t)adc[i] >> 8) & 0xFF;
-	                buf[2] = ((uint32_t)adc[i] >> 0) & 0xFF;
-	                printf("%d=%02X%02X%02X, %8ld", (int)i, (int)buf[0],
-	                       (int)buf[1], (int)buf[2], (long)adc[i]);
-			*/ 
-	                iTemp = volt[i];	/* uV  */
-	                printf("iTemp=  %ld\r\n", iTemp);
-					if (iTemp < 0)
-					{
-						iTemp = -iTemp;
-	                  		  	printf(" (-%ld.%03ld %03ld V) \r\n", iTemp /1000000, (iTemp%1000000)/1000, iTemp%1000);
-					}
-					else
-					{
-	                    			printf(" ( %ld.%03ld %03ld V) \r\n", iTemp /1000000, (iTemp%1000000)/1000, iTemp%1000);
-					}
-
-		}
-			printf("\33[%dA", (int)ch_num);
-		bsp_DelayUS(100000);
+	       while((ADS1256_Scan() == 0)) ;
+			
+			for (i = 0; i < ch_num; i++) {
+				
+				adc[i] = ADS1256_GetAdc(i) ;
+              	volt[i] = (adc[i] * 100) / 167;
 			}
-    bcm2835_spi_end();
-    bcm2835_close();
 
-    return 0;
+			for (i = 0; i < ch_num; i++) {
+
+	            iTemp = volt[i] ;
+	            ADS1256_SaveToBuffer(iTemp, size) ;
+	            size++ ;
+	            if(size == 450000) {
+
+	                printf ("buffer is full") ;
+	                bcm2835_spi_end() ;
+	                printf("\33[%dA", (int)ch_num) ;
+					bsp_DelayUS(100000) ;
+	                break ;
+	            }
+			}
+		}
+		printf("fuera del while, SPI off") ;
+		for (i=0; i < size; i++){
+
+			ADS1256_SaveData(z_buff[i]) ;
+		}
+		fclose(datos1) ;
+    	bcm2835_close() ;
+
+    return 0 ;
 }

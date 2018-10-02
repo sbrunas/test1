@@ -860,12 +860,12 @@ int  main()
 
 		for (i = 0; i < ch_num; i++)
 		{
-	                buf[0] = ((uint32_t)adc[i] >> 16) & 0xFF;
+	               /* buf[0] = ((uint32_t)adc[i] >> 16) & 0xFF;
 	                buf[1] = ((uint32_t)adc[i] >> 8) & 0xFF;
 	                buf[2] = ((uint32_t)adc[i] >> 0) & 0xFF;
 	                printf("%d=%02X%02X%02X, %8ld", (int)i, (int)buf[0],
 	                       (int)buf[1], (int)buf[2], (long)adc[i]);
-
+					*/
 	                iTemp = volt[i];	/* uV  */
 	                printf("iTemp %ld\n\n", iTemp);
 					if (iTemp < 0)
