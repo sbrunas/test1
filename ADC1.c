@@ -121,8 +121,6 @@ typedef struct
 	uint8_t ScanMode;	/*Scanning mode,   0  Single-ended input  8 channel 1 Differential input  4 channel*/
 }ADS1256_VAR_T;
 
-
-
 /*Register definition�� Table 23. Register Map --- ADS1256 datasheet Page 30*/
 enum
 {
@@ -869,6 +867,7 @@ int  main()
 	                       (int)buf[1], (int)buf[2], (long)adc[i]);
 
 	                iTemp = volt[i];	/* uV  */
+	                printf("iTemp %ld\n\n", iTemp);
 					if (iTemp < 0)
 					{
 						iTemp = -iTemp;
