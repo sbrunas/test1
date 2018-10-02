@@ -57,7 +57,7 @@ Prueba 1 lectura ADC
 typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
 
-/* gain channel� */
+/* gain channel */
 typedef enum
 {
 	ADS1256_GAIN_1			= (0),	/* GAIN   1 */
@@ -118,7 +118,7 @@ typedef struct
 	ADS1256_DRATE_E DataRate;	/* DATA output  speed*/
 	int32_t AdcNow[8];			/* ADC  Conversion value */
 	uint8_t Channel;			/* The current channel*/
-	uint8_t ScanMode;	/*Scanning mode,   0  Single-ended input  8 channel�� 1 Differential input  4 channel*/
+	uint8_t ScanMode;	/*Scanning mode,   0  Single-ended input  8 channel 1 Differential input  4 channel*/
 }ADS1256_VAR_T;
 
 
