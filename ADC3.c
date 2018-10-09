@@ -832,7 +832,7 @@ int  main(void)
 	uint8_t i;
 	uint8_t ch_num;
 	int32_t iTemp;
-	uint8_t buf[3];
+	//uint8_t buf[3];
 
 //Buffer----------------------------------------------------------------
 	int32_t z_buff [BUFFER_SIZE] = {0};
