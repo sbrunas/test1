@@ -798,11 +798,18 @@ uint16_t Voltage_Convert(float Vref, float voltage)
 static void ADS1256_SaveData (int32_t udata){
 	FILE *datos1;					 // necesary to work with txt files
 	datos1 = fopen("ADCdata", "a+"); //open the txt file in writing mode and write after the last line
-	fprintf(datos1," (-%ld.%03ld %03ld V) \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;
-	//fprintf(datos1,"%ld\n",udata) ; 	 //se guarda la muetra y se inicia un nueva linea
+	if (udata < 0){
+		udata = -udata ;
+			fprintf(datos1," -%ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;
+	}
+	else{
+		fprintf(datos1," -%ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;	
+	}
+	
+	
 	fclose(datos1);					//close the txt file
 }
-//printf(" (-%ld.%03ld %03ld V) \r\n", iTemp /1000000, (iTemp%1000000)/1000, iTemp%1000);
+					
 /*
 
 *********************************************************************************************************
@@ -913,7 +920,7 @@ int  main()
 		//printf("fuera del while, SPI off\n") ;
 		for (i=0; i < size; i++){
 		//	printf("data to buffer %d \n", i);
-			ADS1256_SaveData(data[i]/1000000) ;
+			ADS1256_SaveData(data[i]) ;
 		}
 		fclose(datos1) ;
     	bcm2835_close() ;
