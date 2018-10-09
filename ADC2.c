@@ -798,7 +798,7 @@ uint16_t Voltage_Convert(float Vref, float voltage)
 static void ADS1256_SaveData (int32_t udata){
 	FILE *datos1;					 // necesary to work with txt files
 	datos1 = fopen("ADCdata", "a+"); //open the txt file in writing mode and write after the last line
-	fprintf(datos1,"%ld\t",udata) ; 	 //se guarda la muetra y se inicia un nueva linea
+	fprintf(datos1,"%ld\n",udata) ; 	 //se guarda la muetra y se inicia un nueva linea
 	fclose(datos1);					//close the txt file
 }
 
