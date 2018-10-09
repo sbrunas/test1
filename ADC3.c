@@ -827,15 +827,15 @@ int  main(void)
 {
 
     uint8_t id;
-  	int32_t adc[8];
-	int32_t volt[8];
+  	int32_t adc[1];
+	int32_t volt[1];
 	uint8_t i;
 	uint8_t ch_num;
 	int32_t iTemp;
 	//uint8_t buf[3];
 
 //Buffer----------------------------------------------------------------
-	int32_t z_buff [BUFFER_SIZE] = {0};
+	int32_t z_buff [21000];
 	uint32_t size = 0;
 	//memset(z_buff, 0, sizeof(int32_t)*BUFFER_SIZE);
 //----------------------------------------------------------------------	
@@ -894,14 +894,14 @@ int  main(void)
 
 	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
-	                printf("\33[%dA", (int)ch_num) ;
+	              //  printf("\33[%dA", (int)ch_num) ;
 					bsp_DelayUS(100000) ;
 	                break ;
 	         }
 		}
 		printf("fuera del while, SPI off\n") ;
 		for (iTemp=0; iTemp < BUFFER_SIZE; iTemp++){
-			ADS1256_SaveData(z_buff[iTemp]/1000000) ;
+			ADS1256_SaveData(z_buff[iTemp]) ;
 		}
 		//fclose(datos1) ;
     	bcm2835_close() ;
