@@ -50,9 +50,7 @@ Prueba 1 lectura ADC
 #define uint8_t unsigned char
 #define uint16_t unsigned short
 #define uint32_t unsigned long
-
-
-
+#define BUFFER_SIZE 21000
 
 typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
@@ -205,7 +203,7 @@ void ADS1256_ISR(void);
 uint8_t ADS1256_Scan(void);
 
 static void ADS1256_SaveData (int32_t udata);
-static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos);
+//static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos);
 
 void  bsp_DelayUS(uint64_t micros)
 {
@@ -809,10 +807,12 @@ static void ADS1256_SaveData (int32_t udata){
 *	parameter: udata
 *	The return value:  NULL
 *********************************************************************************************************
+*/
 
+/*int32_t * ADS1256_SaveToBuffer (int32_t iTemp, uint32_t pos){
+	static int32_t ZBUFF[BUFFER_SIZE] = {0};
+	ZBUFF[pos] = iTemp;
 
-static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos){
-	z_buff[pos] = z;
 }
 */
 /*
@@ -823,8 +823,9 @@ static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos){
 *	The return value:  NULL
 *********************************************************************************************************
 */
-int  main()
+int  main(int argc, char *argv[])
 {
+
     uint8_t id;
   	int32_t adc[8];
 	int32_t volt[8];
@@ -832,23 +833,13 @@ int  main()
 	uint8_t ch_num;
 	int32_t iTemp;
 	uint8_t buf[3];
-//Buffer----------------------------------------------------------------
-	uint32_t size = 0;
-	const uint32_t datacount = 450000;
-	int32_t *data;
-  	data = malloc(sizeof(int32_t) * datacount); /* allocate memory for datacount int's */
- 	if (!data) { /* If data == 0 after the call to malloc, allocation failed for some reason */
-    	perror("Error allocating memory");
-    	abort();
-	  }
-  	/* at this point, we know that data points to a valid block of memory.
-     Remember, however, that this memory is not initialized in any way -- it contains garbage.
-     Let's start by clearing it. */
-  	memset(data, 0, sizeof(int32_t)*datacount);
 
-    if (!bcm2835_init())
-        return 1;
+//Buffer----------------------------------------------------------------
+	int32_t z_buff [BUFFER_SIZE];
+	uint32_t size = 0;
+	memset(z_buff, 0, sizeof(int32_t)*BUFFER_SIZE);
 //----------------------------------------------------------------------	
+//----------------------------------------------------------------------
 	FILE *datos1;	
 	datos1 = fopen("ADCdata", "w"); 
 //----------------------------------------------------------------------
@@ -886,19 +877,20 @@ int  main()
 
 	       while((ADS1256_Scan() == 0)) ;
 			
-			for (i = 0; i < ch_num; i++) {
+			//for (i = 0; i < ch_num; i++) {
 				
-				adc[i] = ADS1256_GetAdc(i) ;
-              	volt[i] = (adc[i] * 100) / 167;
-			}
+				adc[0] = ADS1256_GetAdc(0) ;
+              	volt[0] = (adc[0] * 100) / 167;
+			//}
+              	z_buff[size] = volt[0];
+			//for (i = 0; i < ch_num; i++) {
 
-			for (i = 0; i < ch_num; i++) {
-
-	            iTemp = volt[i] ;
-	            data[size]=iTemp ;
-	            size++ ;
-			}
-			if(size == datacount) {
+	            //iTemp = volt[i] ;
+	            
+	            //ADS1256_SaveToBuffer(z_buff, size);
+	          	size++;
+			//}
+			if(size == BUFFER_SIZE) {
 
 	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
@@ -908,9 +900,8 @@ int  main()
 	         }
 		}
 		printf("fuera del while, SPI off\n") ;
-		for (i=0; i < size; i++){
-
-			ADS1256_SaveData(data[i]/1000000) ;
+		for (iTemp=0; iTemp < BUFFER_SIZE; iTemp++){
+			ADS1256_SaveData(z_buff[iTemp]/1000000) ;
 		}
 		fclose(datos1) ;
     	bcm2835_close() ;

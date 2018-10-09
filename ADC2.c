@@ -909,8 +909,8 @@ int  main()
 		}
 		printf("fuera del while, SPI off\n") ;
 		for (i=0; i < size; i++){
-
-			ADS1256_SaveData(data[i]/1000000) ;
+			printf("data to buffer %ld", data[i]);
+			ADS1256_SaveData(data[i]) ;
 		}
 		fclose(datos1) ;
     	bcm2835_close() ;
