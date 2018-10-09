@@ -903,7 +903,7 @@ int  main(void)
 		for (iTemp=0; iTemp < BUFFER_SIZE; iTemp++){
 			ADS1256_SaveData(z_buff[iTemp]/1000000) ;
 		}
-		fclose(datos1) ;
+		//fclose(datos1) ;
     	bcm2835_close() ;
 
     return 0 ;
