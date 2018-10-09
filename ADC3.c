@@ -823,7 +823,7 @@ static void ADS1256_SaveData (int32_t udata){
 *	The return value:  NULL
 *********************************************************************************************************
 */
-int  main(int argc, char *argv[])
+int  main(void)
 {
 
     uint8_t id;
@@ -835,9 +835,9 @@ int  main(int argc, char *argv[])
 	uint8_t buf[3];
 
 //Buffer----------------------------------------------------------------
-	int32_t z_buff [BUFFER_SIZE];
+	int32_t z_buff [BUFFER_SIZE] = {0};
 	uint32_t size = 0;
-	memset(z_buff, 0, sizeof(int32_t)*BUFFER_SIZE);
+	//memset(z_buff, 0, sizeof(int32_t)*BUFFER_SIZE);
 //----------------------------------------------------------------------	
 //----------------------------------------------------------------------
 	FILE *datos1;	
