@@ -834,7 +834,7 @@ int  main()
 	uint8_t buf[3];
 //Buffer----------------------------------------------------------------
 	uint32_t size = 0;
-	const uint32_t datacount = 14000;
+	const uint32_t datacount = 450000;
 	int32_t *data;
   	data = malloc(sizeof(int32_t) * datacount); /* allocate memory for datacount int's */
  	if (!data) { /* If data == 0 after the call to malloc, allocation failed for some reason */
@@ -895,23 +895,23 @@ int  main()
 			for (i = 0; i < ch_num; i++) {
 
 	        	    iTemp = volt[i] ;
-	            	    data[size]=iTemp ;
-	            	    size++ ;
+	            	data[size]=iTemp ;
+	            	size++ ;
 			printf ("%ld \n", size);
 			}
 			if(size == datacount) {
 
-	                printf ("buffer is full\n") ;
+	          //      printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
-	                printf("\33[%dA", (int)ch_num) ;
-			bsp_DelayUS(100000) ;
+	            //    printf("\33[%dA", (int)ch_num) ;
+					bsp_DelayUS(100000) ;
 	                break ;
 	         }
 		}
-		printf("fuera del while, SPI off\n") ;
+		//printf("fuera del while, SPI off\n") ;
 		for (i=0; i < size; i++){
-			printf("data to buffer %d \n", i);
-			ADS1256_SaveData(data[i]) ;
+		//	printf("data to buffer %d \n", i);
+			ADS1256_SaveData(data[i]/1000000) ;
 		}
 		fclose(datos1) ;
     	bcm2835_close() ;
