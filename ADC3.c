@@ -835,7 +835,7 @@ int  main(void)
 	//uint8_t buf[3];
 
 //Buffer----------------------------------------------------------------
-	int32_t z_buff [21000];
+	int32_t z_buff [14000];
 	uint32_t size = 0;
 	//memset(z_buff, 0, sizeof(int32_t)*BUFFER_SIZE);
 //----------------------------------------------------------------------	
@@ -890,7 +890,7 @@ int  main(void)
 	            //ADS1256_SaveToBuffer(z_buff, size);
 	          	size++;
 			//}
-			if(size == 21000) {
+			if(size == 14000) {
 
 	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
@@ -900,7 +900,7 @@ int  main(void)
 	         }
 		}
 		printf("fuera del while, SPI off\n") ;
-		for (iTemp=0; iTemp < 21000; iTemp++){
+		for (iTemp=0; iTemp < 14000; iTemp++){
 			ADS1256_SaveData(z_buff[iTemp]) ;
 		}
 		//fclose(datos1) ;

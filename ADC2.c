@@ -21,7 +21,7 @@ Prueba 1 lectura ADC
 #include <string.h>
 #include <math.h>
 #include <errno.h>
-#include <stdio.h>
+#include <stdlib.h>
 //CS      -----   SPICS
 //DIN     -----   MOSI
 //DOUT  -----   MISO
@@ -828,13 +828,13 @@ int  main()
     uint8_t id;
   	int32_t adc[8];
 	int32_t volt[8];
-	uint8_t i;
+	uint32_t i;
 	uint8_t ch_num;
 	int32_t iTemp;
 	uint8_t buf[3];
 //Buffer----------------------------------------------------------------
 	uint32_t size = 0;
-	const uint32_t datacount = 450000;
+	const uint32_t datacount = 14000;
 	int32_t *data;
   	data = malloc(sizeof(int32_t) * datacount); /* allocate memory for datacount int's */
  	if (!data) { /* If data == 0 after the call to malloc, allocation failed for some reason */
@@ -889,27 +889,28 @@ int  main()
 			for (i = 0; i < ch_num; i++) {
 				
 				adc[i] = ADS1256_GetAdc(i) ;
-              	volt[i] = (adc[i] * 100) / 167;
+		              	volt[i] = (adc[i] * 100) / 167;
 			}
 
 			for (i = 0; i < ch_num; i++) {
 
-	            iTemp = volt[i] ;
-	            data[size]=iTemp ;
-	            size++ ;
+	        	    iTemp = volt[i] ;
+	            	    data[size]=iTemp ;
+	            	    size++ ;
+			printf ("%ld \n", size);
 			}
 			if(size == datacount) {
 
 	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
 	                printf("\33[%dA", (int)ch_num) ;
-					bsp_DelayUS(100000) ;
+			bsp_DelayUS(100000) ;
 	                break ;
 	         }
 		}
 		printf("fuera del while, SPI off\n") ;
 		for (i=0; i < size; i++){
-			printf("data to buffer %ld", data[i]);
+			printf("data to buffer %d \n", i);
 			ADS1256_SaveData(data[i]) ;
 		}
 		fclose(datos1) ;
