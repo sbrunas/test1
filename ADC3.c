@@ -50,7 +50,7 @@ Prueba 1 lectura ADC
 #define uint8_t unsigned char
 #define uint16_t unsigned short
 #define uint32_t unsigned long
-#define BUFFER_SIZE 21000
+//#define BUFFER_SIZE 21000
 
 typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
@@ -890,7 +890,7 @@ int  main(void)
 	            //ADS1256_SaveToBuffer(z_buff, size);
 	          	size++;
 			//}
-			if(size == BUFFER_SIZE) {
+			if(size == 21000) {
 
 	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
@@ -900,7 +900,7 @@ int  main(void)
 	         }
 		}
 		printf("fuera del while, SPI off\n") ;
-		for (iTemp=0; iTemp < BUFFER_SIZE; iTemp++){
+		for (iTemp=0; iTemp < 21000; iTemp++){
 			ADS1256_SaveData(z_buff[iTemp]) ;
 		}
 		//fclose(datos1) ;
