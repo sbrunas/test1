@@ -803,7 +803,7 @@ static void ADS1256_SaveData (int32_t udata){
 			fprintf(datos1," -%ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;
 	}
 	else{
-		fprintf(datos1," -%ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;	
+		fprintf(datos1," %ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;	
 	}
 	
 	
@@ -886,7 +886,7 @@ int  main()
 		printf("Ok, ASD1256 Chip ID = 0x%d\r\n", (int)id);
 	}
   	
-  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_7500SPS);
+  	ADS1256_CfgADC(ADS1256_GAIN_1, ADS1256_30000SPS);
     
     ADS1256_StartScan(1);
 	
@@ -906,11 +906,11 @@ int  main()
 	        	    iTemp = volt[i] ;
 	            	data[size]=iTemp ;
 	            	size++ ;
-			printf ("%ld \n", size);
+			//printf ("%ld \n", size);
 			}
 			if(size == datacount) {
 
-	          //      printf ("buffer is full\n") ;
+	                printf ("buffer is full\n") ;
 	                bcm2835_spi_end() ;
 	            //    printf("\33[%dA", (int)ch_num) ;
 					bsp_DelayUS(100000) ;
