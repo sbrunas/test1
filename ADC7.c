@@ -211,7 +211,38 @@ static uint8_t ADS1256_Recive8Bit(void)
 	read = bcm2835_spi_transfer(0xff);
 	return read;
 }
+/*
+*********************************************************************************************************
+*	name: ADS1256_WriteCmd
+*	function: Sending a single byte order
+*	parameter: _cmd : command
+*	The return value: NULL
+*********************************************************************************************************
+*/
+static void ADS1256_WriteCmd(uint8_t _cmd)
+{
+	CS_0();	/* SPI   cs = 0 */
+	ADS1256_Send8Bit(_cmd);
+	CS_1();	/* SPI  cs  = 1 */
+}
+/*
+*********************************************************************************************************
+*	name: ADS1256_WriteReg
+*	function: Write the corresponding register
+*	parameter: _RegID: register  ID
+*			 _RegValue: register Value
+*	The return value: NULL
+*********************************************************************************************************
+*/
+static void ADS1256_WriteReg(uint8_t _RegID, uint8_t _RegValue)
+{
+	CS_0();	/* SPI  cs  = 0 */
+	ADS1256_Send8Bit(CMD_WREG | _RegID);	/*Write command register */
+	ADS1256_Send8Bit(0x00);		/*Write the register number */
 
+	ADS1256_Send8Bit(_RegValue);	/*send register value */
+	CS_1();	/* SPI   cs = 1 */
+}
 /*
 *********************************************************************************************************
 *	name: ADS1256_DelayDATA
@@ -448,10 +479,10 @@ static void ADS1256_SetChannal()
 		0111 = AIN7 (ADS1256 only)
 		1xxx = AINCOM (when NSEL3 = 1, NSEL2, NSEL1, NSEL0 are don`t care)
 	*/
-	if (_ch > 7)
+	/*if (_ch > 7)
 	{
 		return;
-	}
+	}*/
 	//ADS1256_WriteReg(REG_MUX, (_ch << 4) | (1 << 3));
 	ADS1256_WriteReg(REG_MUX, (0 << 4) | (0b1000)); 
 }
