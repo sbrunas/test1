@@ -308,8 +308,8 @@ void ADS1256_CfgADC(ADS1256_GAIN_E _gain, ADS1256_DRATE_E _drate)
         buf[0] = (0 << 3) | (1 << 2) | (0 << 1);  // The internal buffer is prohibited
 
         //ADS1256_WriteReg(REG_STATUS, (0 << 3) | (1 << 2) | (1 << 1));
-
-		buf[1] = 0x08;
+        //buf[1] = (0 << 4) | 1 ;
+		buf[1] = 0x01;
 
 		/*	ADCON: A/D Control Register (Address 02h)
 			Bit 7 Reserved, always 0 (Read Only)
