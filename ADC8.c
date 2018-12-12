@@ -538,10 +538,10 @@ static void ADS1256_SaveData (int32_t udata){
 	datos1 = fopen("ADCdata.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (udata < 0){
 		udata = -udata ;
-			fprintf(datos1," -%ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;
+			fprintf(datos1," -%ld.%03ld%03ld\r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;
 	}
 	else{
-		fprintf(datos1," %ld.%03ld %03ld V \r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;	
+		fprintf(datos1," %ld.%03ld%03ld\r\n", udata /1000000, (udata%1000000)/1000, udata%1000) ;	
 	}
 	
 	
