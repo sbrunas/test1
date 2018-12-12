@@ -143,7 +143,7 @@ static uint8_t ADS1256_ReadReg(uint8_t _RegID); //ok
 static void ADS1256_WriteCmd(uint8_t _cmd);
 uint8_t ADS1256_ReadChipID(void); //ok
 static void ADS1256_SetChannal();
-static void ADS1256_SetDiffChannal(uint8_t _ch);
+static void ADS1256_SetDiffChannal();
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
 
