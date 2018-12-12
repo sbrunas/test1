@@ -208,7 +208,8 @@ static void ADS1256_Send8Bit(uint8_t _data)
 static uint8_t ADS1256_Recive8Bit(void)
 {
 	uint8_t read = 0;
-	read = bcm2835_spi_transfer(0xff);
+	//read = bcm2835_spi_transfer(0xff);
+	read = bcm2835_spi_transfer(0x08);
 	return read;
 }
 /*
