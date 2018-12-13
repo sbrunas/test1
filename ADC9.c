@@ -496,6 +496,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\r\n", col0 /1000000, (col0%1000000)/1000, col0%1000) ;	
 	}
+	fclose(datos0) ;
 //FILE 1---------------------------------------------------------------------------------------------------
 	//FILE *datos1;					 // necesary to work with txt files
 	//datos1 = fopen("sen1.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -506,6 +507,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos1," %ld.%03ld%03ld\r\n", col1 /1000000, (col1%1000000)/1000, col1%1000) ;	
 	}
+	fclose(datos1) ;
 //FILE 2---------------------------------------------------------------------------------------------------
 	//FILE *datos2;					 // necesary to work with txt files
 	//datos2 = fopen("sen2.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -516,6 +518,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos2," %ld.%03ld%03ld\r\n", col2 /1000000, (col2%1000000)/1000, col2%1000) ;	
 	}
+	fclose(datos2) ;
 //FILE 3---------------------------------------------------------------------------------------------------
 	//FILE *datos3;					 // necesary to work with txt files
 	//datos3 = fopen("sen3.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -526,6 +529,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos3," %ld.%03ld%03ld\r\n", col3 /1000000, (col3%1000000)/1000, col3%1000) ;	
 	}
+	fclose(datos3) ;
 //FILE 4---------------------------------------------------------------------------------------------------
 	//FILE *datos4;					 // necesary to work with txt files
 	//datos4 = fopen("sen4.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -536,6 +540,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos4," %ld.%03ld%03ld\r\n", col4 /1000000, (col4%1000000)/1000, col4%1000) ;	
 	}
+	fclose(datos4) ;
 //FILE 5---------------------------------------------------------------------------------------------------
 	//FILE *datos5;					 // necesary to work with txt files
 	//datos5 = fopen("sen5.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -546,6 +551,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos5," %ld.%03ld%03ld\r\n", col5 /1000000, (col5%1000000)/1000, col5%1000) ;	
 	}
+	fclose(datos5) ;
 //FILE 6---------------------------------------------------------------------------------------------------
 	//FILE *datos6;					 // necesary to work with txt files
 	//datos6 = fopen("sen6.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -556,9 +562,10 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos6," %ld.%03ld%03ld\r\n", col6 /1000000, (col6%1000000)/1000, col6%1000) ;	
 	}
+	fclose(datos6) ;
 //FILE 7---------------------------------------------------------------------------------------------------
-	//FILE *datos7;					 // necesary to work with txt files
-	//datos7 = fopen("sen7.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos7;					 // necesary to work with txt files
+	datos7 = fopen("sen7.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col7 < 0){
 		col7 = -col7 ;
 		fprintf(datos7,"-%ld.%03ld%03ld", col7 /1000000, (col7%1000000)/1000, col7%1000);
@@ -566,24 +573,10 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	else{
 		fprintf(datos7," %ld.%03ld%03ld\r\n", col7 /1000000, (col7%1000000)/1000, col7%1000) ;	
 	}
+	fclose(datos7) ;
+
 }
-//TXT file open--------------------------------------------------------------------------------------------
-	FILE *datos0;	
-	datos0 = fopen("sen0.txt", "a+");
-	FILE *datos1;	
-	datos1 = fopen("sen1.txt", "a+");
-	FILE *datos2;	
-	datos2 = fopen("sen2.txt", "a+");
-	FILE *datos3;	
-	datos3 = fopen("sen3.txt", "a+");
-	FILE *datos4;	
-	datos4 = fopen("sen4.txt", "a+");
-	FILE *datos5;	
-	datos5 = fopen("sen5.txt", "a+");
-	FILE *datos6;	
-	datos6 = fopen("sen6.txt", "a+");
-	FILE *datos7;	
-	datos7 = fopen("sen7.txt", "a+"); 
+
 //MAIN Program---------------------------------------------------------------------------------------------
 int  main(){
     uint8_t id;
@@ -691,7 +684,23 @@ int  main(){
 
     if (!bcm2835_init())
     	return 1;
-
+//TXT file open--------------------------------------------------------------------------------------------
+	FILE *datos0;	
+	datos0 = fopen("sen0.txt", "a+");
+	FILE *datos1;	
+	datos1 = fopen("sen1.txt", "a+");
+	FILE *datos2;	
+	datos2 = fopen("sen2.txt", "a+");
+	FILE *datos3;	
+	datos3 = fopen("sen3.txt", "a+");
+	FILE *datos4;	
+	datos4 = fopen("sen4.txt", "a+");
+	FILE *datos5;	
+	datos5 = fopen("sen5.txt", "a+");
+	FILE *datos6;	
+	datos6 = fopen("sen6.txt", "a+");
+	FILE *datos7;	
+	datos7 = fopen("sen7.txt", "a+"); 
 //SPI setup------------------------------------------------------------------------------------------------
 
     bcm2835_spi_begin();
