@@ -585,7 +585,7 @@ int  main(){
 	uint32_t i;
 //BUFFER---------------------------------------------------------------------------------------------------
 	uint32_t size = 0;
-	const uint32_t datacount = 37500;
+	const uint32_t datacount = 450000;
 	//pointer for each analog input
 	int32_t *ch0 ; int32_t *ch1 ; int32_t *ch2 ; int32_t *ch3 ; int32_t *ch4 ; int32_t *ch5 ;int32_t *ch6 ;int32_t *ch7 ;	
 //ch0 memory block-----------------------------------------------------------------------------------------
@@ -767,6 +767,7 @@ int  main(){
 		fclose(datos6) ;
 		fclose(datos7) ;
     	bcm2835_close() ;
+    	printf("done");
     return 0 ;
 }//int main
 
