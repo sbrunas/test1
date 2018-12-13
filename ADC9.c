@@ -487,8 +487,8 @@ static int32_t ADS1256_ReadData(void){
 static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t col3,
 							  int32_t col4, int32_t col5, int32_t col6, int32_t col7){
 //FILE 0---------------------------------------------------------------------------------------------------
-	//FILE *datos0;					 // necesary to work with txt files
-	//datos0 = fopen("sen0.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos0;					 // necesary to work with txt files
+	datos0 = fopen("sen0.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col0 < 0){
 		col0 = -col0 ;
 		fprintf(datos0,"-%ld.%03ld%03ld", col0 /1000000, (col0%1000000)/1000, col0%1000);
@@ -498,8 +498,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos0) ;
 //FILE 1---------------------------------------------------------------------------------------------------
-	//FILE *datos1;					 // necesary to work with txt files
-	//datos1 = fopen("sen1.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos1;					 // necesary to work with txt files
+	datos1 = fopen("sen1.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col1 < 0){
 		col1 = -col1 ;
 		fprintf(datos1,"-%ld.%03ld%03ld", col1 /1000000, (col1%1000000)/1000, col1%1000);
@@ -509,8 +509,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos1) ;
 //FILE 2---------------------------------------------------------------------------------------------------
-	//FILE *datos2;					 // necesary to work with txt files
-	//datos2 = fopen("sen2.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos2;					 // necesary to work with txt files
+	datos2 = fopen("sen2.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col2 < 0){
 		col2 = -col2 ;
 		fprintf(datos2,"-%ld.%03ld%03ld", col2 /1000000, (col2%1000000)/1000, col2%1000);
@@ -520,8 +520,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos2) ;
 //FILE 3---------------------------------------------------------------------------------------------------
-	//FILE *datos3;					 // necesary to work with txt files
-	//datos3 = fopen("sen3.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos3;					 // necesary to work with txt files
+	datos3 = fopen("sen3.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col3 < 0){
 		col3 = -col3 ;
 		fprintf(datos3,"-%ld.%03ld%03ld", col3 /1000000, (col3%1000000)/1000, col3%1000);
@@ -531,8 +531,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos3) ;
 //FILE 4---------------------------------------------------------------------------------------------------
-	//FILE *datos4;					 // necesary to work with txt files
-	//datos4 = fopen("sen4.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos4;					 // necesary to work with txt files
+	datos4 = fopen("sen4.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col4 < 0){
 		col4 = -col4 ;
 		fprintf(datos4,"-%ld.%03ld%03ld", col4 /1000000, (col4%1000000)/1000, col4%1000);
@@ -542,8 +542,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos4) ;
 //FILE 5---------------------------------------------------------------------------------------------------
-	//FILE *datos5;					 // necesary to work with txt files
-	//datos5 = fopen("sen5.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos5;					 // necesary to work with txt files
+	datos5 = fopen("sen5.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col5 < 0){
 		col5 = -col5 ;
 		fprintf(datos5,"-%ld.%03ld%03ld", col5 /1000000, (col5%1000000)/1000, col5%1000);
@@ -553,8 +553,8 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 	}
 	fclose(datos5) ;
 //FILE 6---------------------------------------------------------------------------------------------------
-	//FILE *datos6;					 // necesary to work with txt files
-	//datos6 = fopen("sen6.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos6;					 // necesary to work with txt files
+	datos6 = fopen("sen6.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col6 < 0){
 		col6 = -col6 ;
 		fprintf(datos6,"-%ld.%03ld%03ld", col6 /1000000, (col6%1000000)/1000, col6%1000);
