@@ -586,7 +586,8 @@ int  main(){
 	uint32_t size = 0 ;
 	uint32_t datacount ;
 	uint32_t datatime ;
-	scanf("Enter the time in minutes for the acquisition: %ld", &datatime) ;
+	printf("Enter the time in minutes for the acquisition: ") ;
+	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
 	//pointer for each analog input
 	int32_t *ch0 ; int32_t *ch1 ; int32_t *ch2 ; int32_t *ch3 ; int32_t *ch4 ; int32_t *ch5 ;int32_t *ch6 ;int32_t *ch7 ;	
