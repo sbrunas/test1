@@ -567,7 +567,23 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos7," %ld.%03ld%03ld\r\n", col7 /1000000, (col7%1000000)/1000, col7%1000) ;	
 	}
 }
-
+//TXT file open--------------------------------------------------------------------------------------------
+	FILE *datos0;	
+	datos0 = fopen("sen0.txt", "a+");
+	FILE *datos1;	
+	datos1 = fopen("sen1.txt", "a+");
+	FILE *datos2;	
+	datos2 = fopen("sen2.txt", "a+");
+	FILE *datos3;	
+	datos3 = fopen("sen3.txt", "a+");
+	FILE *datos4;	
+	datos4 = fopen("sen4.txt", "a+");
+	FILE *datos5;	
+	datos5 = fopen("sen5.txt", "a+");
+	FILE *datos6;	
+	datos6 = fopen("sen6.txt", "a+");
+	FILE *datos7;	
+	datos7 = fopen("sen7.txt", "a+"); 
 //MAIN Program---------------------------------------------------------------------------------------------
 int  main(){
     uint8_t id;
@@ -576,7 +592,7 @@ int  main(){
 	uint32_t i;
 //BUFFER---------------------------------------------------------------------------------------------------
 	uint32_t size = 0;
-	const uint32_t datacount = 450000;
+	const uint32_t datacount = 37500;
 	//pointer for each analog input
 	int32_t *ch0 ; int32_t *ch1 ; int32_t *ch2 ; int32_t *ch3 ; int32_t *ch4 ; int32_t *ch5 ;int32_t *ch6 ;int32_t *ch7 ;	
 //ch0 memory block-----------------------------------------------------------------------------------------
@@ -675,23 +691,7 @@ int  main(){
 
     if (!bcm2835_init())
     	return 1;
-//TXT file open--------------------------------------------------------------------------------------------
-	FILE *datos0;	
-	datos0 = fopen("sen0.txt", "a+");
-	FILE *datos1;	
-	datos1 = fopen("sen1.txt", "a+");
-	FILE *datos2;	
-	datos2 = fopen("sen2.txt", "a+");
-	FILE *datos3;	
-	datos3 = fopen("sen3.txt", "a+");
-	FILE *datos4;	
-	datos4 = fopen("sen4.txt", "a+");
-	FILE *datos5;	
-	datos5 = fopen("sen5.txt", "a+");
-	FILE *datos6;	
-	datos6 = fopen("sen6.txt", "a+");
-	FILE *datos7;	
-	datos7 = fopen("sen7.txt", "a+"); 
+
 //SPI setup------------------------------------------------------------------------------------------------
 
     bcm2835_spi_begin();
