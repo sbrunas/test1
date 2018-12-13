@@ -138,7 +138,7 @@ static void ADS1256_WriteReg(uint8_t _RegID, uint8_t _RegValue);//ok
 static uint8_t ADS1256_ReadReg(uint8_t _RegID); //ok
 static void ADS1256_WriteCmd(uint8_t _cmd);
 uint8_t ADS1256_ReadChipID(void); //ok
-static void ADS1256_SetChannal();
+static void ADS1256_SetChannal(uint8_t _ch);
 static void ADS1256_SetDiffChannal();
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
@@ -147,8 +147,8 @@ int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
 uint8_t ADS1256_Scan(void);
 
-static void ADS1256_SaveData (int32_t udata);
-static void ADS1256_SaveToBuffer (int32_t z, uint32_t pos);
+static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t col3,
+							  int32_t col4, int32_t col5, int32_t col6, int32_t col7);
 //---------------------------------------------------------------------------------------------------------
 void  bsp_DelayUS(uint64_t micros){
 		bcm2835_delayMicroseconds (micros);
@@ -746,7 +746,7 @@ int  main(){
 		printf("Saving data...\n") ;
 		for (i=0; i < size; i++){
 		//	printf("data to buffer %d \n", i);
-			ADS1256_SaveData(ch0[i]*100/167, ch1[i]*100/167, ch2[i]*100/167, ch3[i]*100/167
+			ADS1256_SaveData(ch0[i]*100/167, ch1[i]*100/167, ch2[i]*100/167, ch3[i]*100/167,
 							 ch4[i]*100/167, ch5[i]*100/167, ch6[i]*100/167, ch7[i]*100/167) ;
 		}
 		fclose(datos0) ;
