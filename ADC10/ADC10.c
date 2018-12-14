@@ -487,93 +487,109 @@ static int32_t ADS1256_ReadData(void){
 static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t col3,
 							  int32_t col4, int32_t col5, int32_t col6, int32_t col7){
 //FILE 0---------------------------------------------------------------------------------------------------
-	FILE *datos0;					 // necesary to work with txt files
-	datos0 = fopen("sen0.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos0 ;					 // necesary to work with txt files
+	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col0 < 0){
 		col0 = -col0 ;
-		fprintf(datos0,"-%ld.%03ld%03ld", col0 /1000000, (col0%1000000)/1000, col0%1000);
+		fprintf(datos0,"-%ld.%03ld%03ld", col0 /1000000, (col0%1000000)/1000, col0%1000) ;
 	}		
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\r\n", col0 /1000000, (col0%1000000)/1000, col0%1000) ;	
 	}
+	bsp_DelayUS(100) ;
 	fclose(datos0) ;
+	bsp_DelayUS(100) ;
 //FILE 1---------------------------------------------------------------------------------------------------
-	FILE *datos1;					 // necesary to work with txt files
-	datos1 = fopen("sen1.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos1 ;					 // necesary to work with txt files
+	datos1 = fopen("sen1.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col1 < 0){
 		col1 = -col1 ;
-		fprintf(datos1,"-%ld.%03ld%03ld", col1 /1000000, (col1%1000000)/1000, col1%1000);
+		fprintf(datos1,"-%ld.%03ld%03ld", col1 /1000000, (col1%1000000)/1000, col1%1000) ;
 	}		
 	else{
 		fprintf(datos1," %ld.%03ld%03ld\r\n", col1 /1000000, (col1%1000000)/1000, col1%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos1) ;
+	bsp_DelayUS(100) ;	
 //FILE 2---------------------------------------------------------------------------------------------------
-	FILE *datos2;					 // necesary to work with txt files
-	datos2 = fopen("sen2.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos2 ;					 // necesary to work with txt files
+	datos2 = fopen("sen2.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col2 < 0){
 		col2 = -col2 ;
-		fprintf(datos2,"-%ld.%03ld%03ld", col2 /1000000, (col2%1000000)/1000, col2%1000);
+		fprintf(datos2,"-%ld.%03ld%03ld", col2 /1000000, (col2%1000000)/1000, col2%1000) ;
 	}		
 	else{
 		fprintf(datos2," %ld.%03ld%03ld\r\n", col2 /1000000, (col2%1000000)/1000, col2%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos2) ;
+	bsp_DelayUS(100) ;	
 //FILE 3---------------------------------------------------------------------------------------------------
-	FILE *datos3;					 // necesary to work with txt files
-	datos3 = fopen("sen3.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos3 ;					 // necesary to work with txt files
+	datos3 = fopen("sen3.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col3 < 0){
 		col3 = -col3 ;
-		fprintf(datos3,"-%ld.%03ld%03ld", col3 /1000000, (col3%1000000)/1000, col3%1000);
+		fprintf(datos3,"-%ld.%03ld%03ld", col3 /1000000, (col3%1000000)/1000, col3%1000) ;
 	}		
 	else{
 		fprintf(datos3," %ld.%03ld%03ld\r\n", col3 /1000000, (col3%1000000)/1000, col3%1000) ;	
 	}
+	bsp_DelayUS(100) ;
 	fclose(datos3) ;
+	bsp_DelayUS(100) ;
 //FILE 4---------------------------------------------------------------------------------------------------
-	FILE *datos4;					 // necesary to work with txt files
-	datos4 = fopen("sen4.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos4 ;					 // necesary to work with txt files
+	datos4 = fopen("sen4.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col4 < 0){
 		col4 = -col4 ;
-		fprintf(datos4,"-%ld.%03ld%03ld", col4 /1000000, (col4%1000000)/1000, col4%1000);
+		fprintf(datos4,"-%ld.%03ld%03ld", col4 /1000000, (col4%1000000)/1000, col4%1000) ;
 	}		
 	else{
 		fprintf(datos4," %ld.%03ld%03ld\r\n", col4 /1000000, (col4%1000000)/1000, col4%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos4) ;
+	bsp_DelayUS(100) ;	
 //FILE 5---------------------------------------------------------------------------------------------------
-	FILE *datos5;					 // necesary to work with txt files
-	datos5 = fopen("sen5.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos5 ;					 // necesary to work with txt files
+	datos5 = fopen("sen5.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col5 < 0){
 		col5 = -col5 ;
-		fprintf(datos5,"-%ld.%03ld%03ld", col5 /1000000, (col5%1000000)/1000, col5%1000);
+		fprintf(datos5,"-%ld.%03ld%03ld", col5 /1000000, (col5%1000000)/1000, col5%1000) ;
 	}		
 	else{
 		fprintf(datos5," %ld.%03ld%03ld\r\n", col5 /1000000, (col5%1000000)/1000, col5%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos5) ;
+	bsp_DelayUS(100) ;	
 //FILE 6---------------------------------------------------------------------------------------------------
-	FILE *datos6;					 // necesary to work with txt files
+	FILE *datos6 ;					 // necesary to work with txt files
 	datos6 = fopen("sen6.txt", "a+"); //open the txt file in writing mode and write after the last line
 	if (col6 < 0){
 		col6 = -col6 ;
-		fprintf(datos6,"-%ld.%03ld%03ld", col6 /1000000, (col6%1000000)/1000, col6%1000);
+		fprintf(datos6,"-%ld.%03ld%03ld", col6 /1000000, (col6%1000000)/1000, col6%1000) ;
 	}		
 	else{
 		fprintf(datos6," %ld.%03ld%03ld\r\n", col6 /1000000, (col6%1000000)/1000, col6%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos6) ;
+	bsp_DelayUS(100) ;	
 //FILE 7---------------------------------------------------------------------------------------------------
-	FILE *datos7;					 // necesary to work with txt files
-	datos7 = fopen("sen7.txt", "a+"); //open the txt file in writing mode and write after the last line
+	FILE *datos7 ;					 // necesary to work with txt files
+	datos7 = fopen("sen7.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (col7 < 0){
 		col7 = -col7 ;
-		fprintf(datos7,"-%ld.%03ld%03ld", col7 /1000000, (col7%1000000)/1000, col7%1000);
+		fprintf(datos7,"-%ld.%03ld%03ld", col7 /1000000, (col7%1000000)/1000, col7%1000) ;
 	}		
 	else{
 		fprintf(datos7," %ld.%03ld%03ld\r\n", col7 /1000000, (col7%1000000)/1000, col7%1000) ;	
 	}
+	bsp_DelayUS(100) ;	
 	fclose(datos7) ;
+	bsp_DelayUS(100) ;	
 }
 
 //MAIN Program---------------------------------------------------------------------------------------------
@@ -689,21 +705,21 @@ int  main(){
     	return 1;
 //TXT file open--------------------------------------------------------------------------------------------
 	FILE *datos0;	
-	datos0 = fopen("sen0.txt", "a+");
+	datos0 = fopen("sen0.txt", "w");
 	FILE *datos1;	
-	datos1 = fopen("sen1.txt", "a+");
+	datos1 = fopen("sen1.txt", "w");
 	FILE *datos2;	
-	datos2 = fopen("sen2.txt", "a+");
+	datos2 = fopen("sen2.txt", "w");
 	FILE *datos3;	
-	datos3 = fopen("sen3.txt", "a+");
+	datos3 = fopen("sen3.txt", "w");
 	FILE *datos4;	
-	datos4 = fopen("sen4.txt", "a+");
+	datos4 = fopen("sen4.txt", "w");
 	FILE *datos5;	
-	datos5 = fopen("sen5.txt", "a+");
+	datos5 = fopen("sen5.txt", "w");
 	FILE *datos6;	
-	datos6 = fopen("sen6.txt", "a+");
+	datos6 = fopen("sen6.txt", "w");
 	FILE *datos7;	
-	datos7 = fopen("sen7.txt", "a+"); 
+	datos7 = fopen("sen7.txt", "w"); 
 //SPI setup------------------------------------------------------------------------------------------------
 
     bcm2835_spi_begin();
