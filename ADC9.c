@@ -767,7 +767,7 @@ int  main(){
 		fclose(datos6) ;
 		fclose(datos7) ;
     	bcm2835_close() ;
-    	printf("done");
+    	printf("done\n");
     return 0 ;
 }//int main
 
