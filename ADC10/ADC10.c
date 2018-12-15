@@ -749,7 +749,7 @@ int  main(){
     printf("ADS1256 Ready\n");
     //Single_ended or Differential
     ADS1256_StartScan(Single_ended); 
-    printf("Acquiring %ld samples at 3750SPS/channel...\n", datacount);
+    printf("Acquiring %ld samples at 3750 SPS per channel...\n", datacount);
 //LOOP-----------------------------------------------------------------------------------------------------
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
