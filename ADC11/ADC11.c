@@ -533,7 +533,7 @@ int  main(){
 					
 				for (i = 0; i < ch_num; i++){
 
-					adc[i] = ADC1256_GetAdc(ch_num) ;
+					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
 					
 					if (volts < 0){
