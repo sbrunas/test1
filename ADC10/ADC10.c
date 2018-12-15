@@ -497,6 +497,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos0," %ld.%03ld%03ld\r\n", col0 /1000000, (col0%1000000)/1000, col0%1000) ;	
 	}
 	fclose(datos0) ;
+	bsp_DelayUS(1000) ;
 //FILE 1---------------------------------------------------------------------------------------------------
 	FILE *datos1 ;					 // necesary to work with txt files
 	datos1 = fopen("sen1.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -508,6 +509,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos1," %ld.%03ld%03ld\r\n", col1 /1000000, (col1%1000000)/1000, col1%1000) ;	
 	}
 	fclose(datos1) ;
+	bsp_DelayUS(1000) ;
 //FILE 2---------------------------------------------------------------------------------------------------
 	FILE *datos2 ;					 // necesary to work with txt files
 	datos2 = fopen("sen2.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -519,6 +521,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos2," %ld.%03ld%03ld\r\n", col2 /1000000, (col2%1000000)/1000, col2%1000) ;	
 	}
 	fclose(datos2) ;
+	bsp_DelayUS(1000) ;
 //FILE 3---------------------------------------------------------------------------------------------------
 	FILE *datos3 ;					 // necesary to work with txt files
 	datos3 = fopen("sen3.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -530,6 +533,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos3," %ld.%03ld%03ld\r\n", col3 /1000000, (col3%1000000)/1000, col3%1000) ;	
 	}
 	fclose(datos3) ;
+	bsp_DelayUS(1000) ;
 //FILE 4---------------------------------------------------------------------------------------------------
 	FILE *datos4 ;					 // necesary to work with txt files
 	datos4 = fopen("sen4.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -541,6 +545,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos4," %ld.%03ld%03ld\r\n", col4 /1000000, (col4%1000000)/1000, col4%1000) ;	
 	}
 	fclose(datos4) ;
+	bsp_DelayUS(1000) ;
 //FILE 5---------------------------------------------------------------------------------------------------
 	FILE *datos5 ;					 // necesary to work with txt files
 	datos5 = fopen("sen5.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -552,6 +557,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos5," %ld.%03ld%03ld\r\n", col5 /1000000, (col5%1000000)/1000, col5%1000) ;	
 	}
 	fclose(datos5) ;
+	bsp_DelayUS(1000) ;
 //FILE 6---------------------------------------------------------------------------------------------------
 	FILE *datos6 ;					 // necesary to work with txt files
 	datos6 = fopen("sen6.txt", "a+"); //open the txt file in writing mode and write after the last line
@@ -563,6 +569,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos6," %ld.%03ld%03ld\r\n", col6 /1000000, (col6%1000000)/1000, col6%1000) ;	
 	}
 	fclose(datos6) ;
+	bsp_DelayUS(1000) ;
 //FILE 7---------------------------------------------------------------------------------------------------
 	FILE *datos7 ;					 // necesary to work with txt files
 	datos7 = fopen("sen7.txt", "a+") ; //open the txt file in writing mode and write after the last line
@@ -574,6 +581,7 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2, int32_t 
 		fprintf(datos7," %ld.%03ld%03ld\r\n", col7 /1000000, (col7%1000000)/1000, col7%1000) ;	
 	}
 	fclose(datos7) ;
+	bsp_DelayUS(1000) ;
 }
 
 //MAIN Program---------------------------------------------------------------------------------------------
@@ -586,7 +594,7 @@ int  main(){
 	uint32_t size = 0 ;
 	uint32_t datacount ;
 	uint32_t datatime ;
-	printf("Enter the time in minutes for the acquisition: ") ;
+	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
 	//pointer for each analog input
