@@ -531,7 +531,7 @@ static int32_t ADS1256_ReadData(void)
 *	function:  Take iTemp and tranfer to a txt file
 *	parameter: udata
 *	The return value:  NULL
-*********************************************************************************************************
+//-------------------------------------------------------------------------------------------------------
 */
 static void ADS1256_SaveData (int32_t udata){
 	FILE *datos1;					 // necesary to work with txt files
