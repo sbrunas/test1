@@ -546,9 +546,13 @@ int  main(){
 					//else{
 					
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
+						fflush(stdin);
+
 					//}
 					if (i == 7) {
 						fprintf(datos0, "\n") ;
+						fflush(stdin);
+
 					}
 				}	
 				size ++;
