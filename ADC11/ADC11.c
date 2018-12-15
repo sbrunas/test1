@@ -487,7 +487,7 @@ int  main(){
 	uint32_t size = 0 ;
 	uint32_t datacount ;
 	uint32_t datatime ;
-	printf("Enter the time in minutes for the acquisition: ") ;
+	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
 
@@ -545,7 +545,7 @@ int  main(){
 					
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
 					}
-					if (i == 7) fprintf(datos0, "\n") ;
+					if (i == 7) {fprintf(datos0, "\n") ;}
 				}	
 				size ++;
 			if(size == datacount) {
