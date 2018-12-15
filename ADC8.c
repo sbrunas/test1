@@ -555,7 +555,7 @@ int  main()
 	uint32_t i;
 //Buffer----------------------------------------------------------------
 	uint32_t size = 0;
-	const uint32_t datacount = 450000;
+	const uint32_t datacount = 3750;
 	int32_t *data;
   	data = malloc(sizeof(int32_t) * datacount); /* allocate memory for datacount int's */
  	if (!data) { /* If data == 0 after the call to malloc, allocation failed for some reason */
