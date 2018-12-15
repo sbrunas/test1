@@ -495,7 +495,7 @@ int  main(){
 
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
-	FILE datos0;	
+	//FILE datos0;	
 	datos0 = fopen("sen0.txt", "w");
 	if (datos0 == NULL){
     	printf("Error opening file!\n");
