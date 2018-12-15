@@ -142,6 +142,7 @@ static void ADS1256_SetChannal(uint8_t _ch);
 static void ADS1256_SetDiffChannal();
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
+//void datatxt(FILE *) ;
 
 int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
@@ -490,12 +491,13 @@ int  main(){
 	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
+	fflush(stdin);
 
 //TXT file open--------------------------------------------------------------------------------------------
+	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
 	FILE *datos0;	
 	datos0 = fopen("sen0.txt", "w");
-	if (datos0 == NULL)
-	{
+	if (datos0 == NULL){
     	printf("Error opening file!\n");
     	exit(1);
 	}
@@ -545,7 +547,9 @@ int  main(){
 					
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
 					//}
-					if (i == 7) {fprintf(datos0, "\n") ;}
+					if (i == 7) {
+						fprintf(datos0, "\n") ;
+					}
 				}	
 				size ++;
 			if(size == datacount) {
