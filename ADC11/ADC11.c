@@ -496,7 +496,7 @@ int  main(){
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
 	FILE *datos0;	
-	datos0 = fopen("sen0.txt", "w");
+	datos0 = fopen("sen0.txt", "w+");
 	if (datos0 == NULL){
     	printf("Error opening file!\n");
     	exit(1);
@@ -544,15 +544,11 @@ int  main(){
 					//	fprintf(datos0,"-%ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;
 					//}		
 					//else{
-					
+						
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
-						fflush(stdin);
-
 					//}
 					if (i == 7) {
 						fprintf(datos0, "\n") ;
-						fflush(stdin);
-
 					}
 				}	
 				size ++;
