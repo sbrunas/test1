@@ -483,7 +483,7 @@ static int32_t ADS1256_ReadData(void){
 //	The return value:  NULL*/
 //---------------------------------------------------------------------------------------------------------
 static void Save_Data(int32_t data, int for_count){
-	/*FILE *datos0 ;
+	FILE *datos0 ;
 	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (data < 0){
 					
@@ -493,10 +493,10 @@ static void Save_Data(int32_t data, int for_count){
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
 	}
-	/*if (for_count == 7) {
+	if (for_count == 7) {
 		fprintf(datos0, "\n") ;
 	}
-	fclose(datos0) ;*/
+	fclose(datos0) ;
 }
 //MAIN Program---------------------------------------------------------------------------------------------
 int  main(){
@@ -516,8 +516,8 @@ int  main(){
 
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
-	FILE *datos0 ;	
-	datos0 = fopen("sen0.txt", "w") ;
+	FILE *datos0;	
+	datos0 = fopen("sen0.txt", "w");
 	if (datos0 == NULL){
     	printf("Error opening file!\n");
     	exit(1);
@@ -551,6 +551,7 @@ int  main(){
     ADS1256_StartScan(Single_ended); 
     printf("Acquiring %ld samples at 3750 SPS per channel...\n", datacount);
 //LOOP-----------------------------------------------------------------------------------------------------
+		printf("while\n") ;
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
 					
