@@ -505,15 +505,6 @@ int  main(){
     uint8_t ch_num = 8 ;
 	uint32_t i ;
 	int32_t volts ;
-//BUFFER---------------------------------------------------------------------------------------------------
-	uint32_t size = 0 ;
-	uint32_t datacount ;
-	uint32_t datatime ;
-	printf("Enter the time in secons for the acquisition: ") ;
-	scanf("%ld", &datatime) ;
-	datacount = datatime * 3750 ; 
-	//fflush(stdin);
-
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
 	FILE * datos0 = NULL ;	
@@ -525,6 +516,14 @@ int  main(){
 	else{
 		printf("Succesfully creating the file") ;
 	}
+//BUFFER---------------------------------------------------------------------------------------------------
+	uint32_t size = 0 ;
+	uint32_t datacount ;
+	uint32_t datatime ;
+	printf("Enter the time in secons for the acquisition: ") ;
+	scanf("%ld", &datatime) ;
+	datacount = datatime * 3750 ; 
+	//fflush(stdin);
 //SPI setup------------------------------------------------------------------------------------------------
     bcm2835_spi_begin();
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);   //default
@@ -557,14 +556,13 @@ int  main(){
 		printf("while\n") ;
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
-				FILE *datos0 ;
-				datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 				for (i = 0; i < ch_num; i++){
 
 					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
 					//Save_Data(volts, i) ;
-
+					FILE *datos0 ;
+					datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 					if (volts < 0){
 									
 						volts = -volts ;
@@ -573,14 +571,14 @@ int  main(){
 					else{
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
 					}
-					if (i == 7) {
+					/*if (i == 7) {
 						fprintf(datos0, "\n") ;
-					}
-				}
-				fclose(datos0) ;	
+					}*/
+					fclose(datos0) ;
+				}	
 				size ++;
 				if(size == datacount) {
-	        		printf ("buffer is full\n") ;
+	        		//printf ("buffer is full\n") ;
 	        		bcm2835_spi_end() ;
 					bsp_DelayUS(100000) ;
 	        		break ;

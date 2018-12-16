@@ -629,6 +629,7 @@ int  main(){
     //Single_ended or Differential
     ADS1256_StartScan(Single_ended); 
     printf("Acquiring %ld samples at 3750 SPS per channel...\n", datacount);
+    fflush(stdout) ;
 //LOOP-----------------------------------------------------------------------------------------------------
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
