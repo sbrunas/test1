@@ -373,10 +373,10 @@ void ADS1256_ISR(void){
 		}
 	}
 	//1 Differential input  4 channel
-	else	/*DiffChannal*/
+	/*else
 	{
 
-		ADS1256_SetDiffChannal(g_tADS1256.Channel);	/* change DiffChannal */
+		ADS1256_SetDiffChannal(g_tADS1256.Channel);
 		bsp_DelayUS(5);
 
 		ADS1256_WriteCmd(CMD_SYNC);
@@ -398,7 +398,7 @@ void ADS1256_ISR(void){
 		{
 			g_tADS1256.Channel = 0;
 		}
-	}
+	}*/
 }
 //---------------------------------------------------------------------------------------------------------
 //	name: ADS1256_SetChannal
@@ -518,10 +518,10 @@ int  main(){
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
 	FILE *datos0;	
 	datos0 = fopen("sen0.txt", "w");
-	if (datos0 == NULL){
-    	printf("Error opening file!\n");
-    	exit(1);
-	}
+	//if (datos0 == NULL){
+    //	printf("Error opening file!\n");
+    //	exit(1);
+	//}
 //SPI setup------------------------------------------------------------------------------------------------
     bcm2835_spi_begin();
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);   //default
