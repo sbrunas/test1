@@ -483,20 +483,20 @@ static int32_t ADS1256_ReadData(void){
 //	The return value:  NULL*/
 //---------------------------------------------------------------------------------------------------------
 static void Save_Data(int32_t data, int for_count){
-	FILE *datos0 ;
+	/*FILE *datos0 ;
 	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (data < 0){
 					
 		data = -data ;
-		//fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
+		fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
 	}		
 	else{
-		//fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
+		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
 	}
 	/*if (for_count == 7) {
 		fprintf(datos0, "\n") ;
-	}*/
-	fclose(datos0) ;
+	}
+	fclose(datos0) ;*/
 }
 //MAIN Program---------------------------------------------------------------------------------------------
 int  main(){
