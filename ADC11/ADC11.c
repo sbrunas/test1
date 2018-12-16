@@ -519,9 +519,9 @@ int  main(){
 //BUFFER---------------------------------------------------------------------------------------------------
 	uint32_t size = 0 ;
 	uint32_t datacount ;
-	uint32_t datatime ;
-	printf("Enter the time in secons for the acquisition: ") ;
-	scanf("%ld", &datatime) ;
+	uint32_t datatime = 10 ;
+	//printf("Enter the time in secons for the acquisition: ") ;
+	//scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
 	//fflush(stdin);
 //SPI setup------------------------------------------------------------------------------------------------
@@ -561,8 +561,8 @@ int  main(){
 					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
 					//Save_Data(volts, i) ;
-					FILE *datos0 ;
-					datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
+					//FILE *datos0 ;
+					//datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 					if (volts < 0){
 									
 						volts = -volts ;
@@ -571,10 +571,10 @@ int  main(){
 					else{
 						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
 					}
-					/*if (i == 7) {
+					if (i == 7) {
 						fprintf(datos0, "\n") ;
-					}*/
-					fclose(datos0) ;
+					}
+					//fclose(datos0) ;
 				}	
 				size ++;
 				if(size == datacount) {
