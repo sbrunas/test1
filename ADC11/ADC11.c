@@ -142,7 +142,7 @@ static void ADS1256_SetChannal(uint8_t _ch);
 static void ADS1256_SetDiffChannal();
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
-//void datatxt(FILE *) ;
+void Save_Data(int32_t data) ;
 
 int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
@@ -476,7 +476,28 @@ static int32_t ADS1256_ReadData(void){
 
 	return (int32_t)read;
 }
+//---------------------------------------------------------------------------------------------------------
+//	name: ADS1256_SaveData
+//	function:  Take iTemp and tranfer to a txt file
+//	parameter: udata
+//	The return value:  NULL*/
+//---------------------------------------------------------------------------------------------------------
+void Save_Data(int32_t data){
 
+	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
+	if (data < 0){
+					
+		data = -data ;
+		fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
+	}		
+	else{
+		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
+	}
+	if (i == 7) {
+		fprintf(datos0, "\n") ;
+	}
+	fclose(datos0) ;
+}
 //MAIN Program---------------------------------------------------------------------------------------------
 int  main(){
     uint8_t id ;
@@ -495,7 +516,7 @@ int  main(){
 
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
-	//FILE datos0;	
+	FILE *datos0;	
 	datos0 = fopen("sen0.txt", "w");
 	if (datos0 == NULL){
     	printf("Error opening file!\n");
@@ -537,19 +558,7 @@ int  main(){
 
 					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
-					
-					//if (volts < 0){
-					
-					//	volts = -volts ;
-					//	fprintf(datos0,"-%ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;
-					//}		
-					//else{
-						
-						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
-					//}
-					if (i == 7) {
-						fprintf(datos0, "\n") ;
-					}
+					Save_Data(volts) ;
 				}	
 				size ++;
 			if(size == datacount) {
