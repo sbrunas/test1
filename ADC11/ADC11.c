@@ -29,7 +29,7 @@
 #define uint16_t unsigned short
 #define uint32_t unsigned long
 
-//typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
 //---------------------------------------------------------------------------------------------------------
 /* gain channel */
@@ -139,10 +139,10 @@ static uint8_t ADS1256_ReadReg(uint8_t _RegID); //ok
 static void ADS1256_WriteCmd(uint8_t _cmd);
 uint8_t ADS1256_ReadChipID(void); //ok
 static void ADS1256_SetChannal(uint8_t _ch);
-static void ADS1256_SetDiffChannal();
+static void ADS1256_SetDiffChannal(uint8_t _ch);
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
-void Save_Data(int32_t data, int for_count) ;
+static void Save_Data(int32_t data, int for_count) ;
 
 int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
@@ -373,7 +373,7 @@ void ADS1256_ISR(void){
 		}
 	}
 	//1 Differential input  4 channel
-	/*else
+	else
 	{
 
 		ADS1256_SetDiffChannal(g_tADS1256.Channel);
@@ -398,7 +398,7 @@ void ADS1256_ISR(void){
 		{
 			g_tADS1256.Channel = 0;
 		}
-	}*/
+	}
 }
 //---------------------------------------------------------------------------------------------------------
 //	name: ADS1256_SetChannal
@@ -419,7 +419,7 @@ static void ADS1256_SetChannal(uint8_t _ch){
 //	parameter:  _ch:  channel number  0--3
 //	The return value:  four high status register
 //---------------------------------------------------------------------------------------------------------
-static void ADS1256_SetDiffChannal(){
+static void ADS1256_SetDiffChannal(uint8_t _ch){
 	/*DiffChannel AIN0 - AIN1*/
 	ADS1256_WriteReg(REG_MUX, (0 << 4) | (1 << 0)); // AIN0 PSEL0 and AIN1 NSEL0
 }
@@ -482,7 +482,7 @@ static int32_t ADS1256_ReadData(void){
 //	parameter: udata
 //	The return value:  NULL*/
 //---------------------------------------------------------------------------------------------------------
-void Save_Data(int32_t data, int for_count){
+static void Save_Data(int32_t data, int for_count){
 	FILE *datos0 ;
 	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (data < 0){
@@ -493,9 +493,9 @@ void Save_Data(int32_t data, int for_count){
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
 	}
-	if (for_count == 7) {
+	/*if (for_count == 7) {
 		fprintf(datos0, "\n") ;
-	}
+	}*/
 	fclose(datos0) ;
 }
 //MAIN Program---------------------------------------------------------------------------------------------
@@ -512,16 +512,16 @@ int  main(){
 	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
-	fflush(stdin);
+	//fflush(stdin);
 
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
-	FILE *datos0;	
-	datos0 = fopen("sen0.txt", "w");
-	//if (datos0 == NULL){
-    //	printf("Error opening file!\n");
-    //	exit(1);
-	//}
+	FILE *datos0 ;	
+	datos0 = fopen("sen0.txt", "w") ;
+	if (datos0 == NULL){
+    	printf("Error opening file!\n");
+    	exit(1);
+	}
 //SPI setup------------------------------------------------------------------------------------------------
     bcm2835_spi_begin();
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);   //default
@@ -561,12 +561,12 @@ int  main(){
 					Save_Data(volts, i) ;
 				}	
 				size ++;
-			if(size == datacount) {
-	        	printf ("buffer is full\n") ;
-	        	bcm2835_spi_end() ;
-				bsp_DelayUS(100000) ;
-	        	break ;
-	        }
+				if(size == datacount) {
+	        		printf ("buffer is full\n") ;
+	        		bcm2835_spi_end() ;
+					bsp_DelayUS(100000) ;
+	        		break ;
+	        	}
 		}//while(1)
 		printf("SPI off\n") ;
 		printf("Saving data...\n") ;
