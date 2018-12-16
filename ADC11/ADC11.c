@@ -483,7 +483,7 @@ static int32_t ADS1256_ReadData(void){
 //	The return value:  NULL*/
 //---------------------------------------------------------------------------------------------------------
 void Save_Data(int32_t data, int for_count){
-
+	FILE *datos0 ;
 	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (data < 0){
 					
