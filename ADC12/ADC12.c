@@ -587,7 +587,7 @@ int  main(){
     	printf("Error opening file 0!\n") ;
     	exit(1) ;
 	}
-	FILE *datos1 NULL;	
+	FILE *datos1 = NULL;	
 	datos1 = fopen("sen1.txt", "w");
 	if (datos1 == NULL){
     	printf("Error opening file 1!\n") ;
