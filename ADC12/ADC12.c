@@ -535,7 +535,7 @@ int  main(){
     uint8_t ch_num = 0 ;
 	uint32_t i;
 //BUFFER---------------------------------------------------------------------------------------------------
-	int32_t adc[3] ;
+	int32_t buf[3] ;
 	uint32_t size = 0 ;
 	uint32_t datacount ;
 	uint32_t datatime ;
@@ -636,11 +636,11 @@ int  main(){
 	    	while((ADS1256_Scan() == 0)) ;
 					
 				for (i=0; i < 3; i++){
-					adc[i] = ADS1256_GetAdc(i) ;
+					buf[i] = ADS1256_GetAdc(i) ;
 				}
-				ch0[size] = adc[0] * 100/167 ;
-	            ch1[size] = adc[0] * 100/167 ;
-	            ch2[size] = adc[0] * 100/167 ;
+				ch0[size] = buf[0] * 100/167 ;
+	            ch1[size] = buf[0] * 100/167 ;
+	            ch2[size] = buf[0] * 100/167 ;
 	            size++ ;
 				
 				if(size == datacount) {
