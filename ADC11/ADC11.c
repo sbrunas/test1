@@ -29,7 +29,7 @@
 #define uint16_t unsigned short
 #define uint32_t unsigned long
 
-typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+//typedef enum {FALSE = 0, TRUE = !FALSE} bool;
 
 //---------------------------------------------------------------------------------------------------------
 /* gain channel */
