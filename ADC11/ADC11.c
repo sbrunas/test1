@@ -516,11 +516,14 @@ int  main(){
 
 //TXT file open--------------------------------------------------------------------------------------------
 	//if ((datos0 = fopen("sen0.txt", "w"))!= NULL) datatxt(datos0)
-	FILE *datos0 = NULL ;	
+	FILE * datos0 = NULL ;	
 	datos0 = fopen("sen0.txt", "w") ;
 	if (datos0 == NULL){
     	printf("Error opening file!\n") ;
     	exit(1) ;
+	}
+	else{
+		printf("Succesfully creating the file") ;
 	}
 //SPI setup------------------------------------------------------------------------------------------------
     bcm2835_spi_begin();
