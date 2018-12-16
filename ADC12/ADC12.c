@@ -490,9 +490,11 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2){
 	if (col0 < 0){
 		col0 = -col0 ;
 		fprintf(datos0,"-%ld.%03ld%03ld\r\n", col0 /1000000, (col0%1000000)/1000, col0%1000) ;
+		fflush(stdout) ;
 	}		
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\r\n", col0 /1000000, (col0%1000000)/1000, col0%1000) ;	
+		fflush(stdout) ;
 	}
 	fclose(datos0) ;
 	//fflush(stdin); 
@@ -502,9 +504,11 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2){
 	if (col1 < 0){
 		col1 = -col1 ;
 		fprintf(datos1,"-%ld.%03ld%03ld\r\n", col1 /1000000, (col1%1000000)/1000, col1%1000) ;
+		fflush(stdout) ;
 	}		
 	else{
 		fprintf(datos1," %ld.%03ld%03ld\r\n", col1 /1000000, (col1%1000000)/1000, col1%1000) ;	
+		fflush(stdout) ;
 	}
 	fclose(datos1) ;
 	//fflush(stdin); 
@@ -514,9 +518,11 @@ static void ADS1256_SaveData (int32_t col0, int32_t col1, int32_t col2){
 	if (col2 < 0){
 		col2 = -col2 ;
 		fprintf(datos2,"-%ld.%03ld%03ld\r\n", col2 /1000000, (col2%1000000)/1000, col2%1000) ;
+		fflush(stdout) ;
 	}		
 	else{
 		fprintf(datos2," %ld.%03ld%03ld\r\n", col2 /1000000, (col2%1000000)/1000, col2%1000) ;	
+		fflush(stdout) ;
 	}
 	fclose(datos2) ;
 	//fflush(stdin); 
@@ -535,6 +541,7 @@ int  main(){
 	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
 	datacount = datatime * 3750 ; 
+	fflush(stdin) ;
 	//pointer for each analog input
 	int32_t *ch0 ; int32_t *ch1 ; int32_t *ch2 ;
 //ch0 memory block-----------------------------------------------------------------------------------------
@@ -574,12 +581,24 @@ int  main(){
     if (!bcm2835_init())
     	return 1;	
 //TXT file open--------------------------------------------------------------------------------------------
-	FILE *datos0;	
+	FILE *datos0 = NULL;	
 	datos0 = fopen("sen0.txt", "w");
-	FILE *datos1;	
+	if (datos0 == NULL){
+    	printf("Error opening file 0!\n") ;
+    	exit(1) ;
+	}
+	FILE *datos1 NULL;	
 	datos1 = fopen("sen1.txt", "w");
-	FILE *datos2;	
+	if (datos1 == NULL){
+    	printf("Error opening file 1!\n") ;
+    	exit(1) ;
+	}
+	FILE *datos2 = NULL;	
 	datos2 = fopen("sen2.txt", "w");
+	if (datos1 == NULL){
+    	printf("Error opening file 2!\n") ;
+    	exit(1) ;
+	}
 //SPI setup------------------------------------------------------------------------------------------------
 
     bcm2835_spi_begin();
