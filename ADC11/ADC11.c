@@ -565,15 +565,15 @@ int  main(){
 					volts = adc[i] * 100/167 ;
 					//Save_Data(volts, i) ;
 
-					if (data < 0){
+					if (volts < 0){
 									
-						data = -data ;
-						fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
+						volts = -volts ;
+						fprintf(datos0,"-%ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;
 					}		
 					else{
-						fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
+						fprintf(datos0," %ld.%03ld%03ld\t", volts /1000000, (volts%1000000)/1000, volts%1000) ;	
 					}
-					if (for_count == 7) {
+					if (i == 7) {
 						fprintf(datos0, "\n") ;
 					}
 				}
