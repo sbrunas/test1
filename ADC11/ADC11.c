@@ -142,7 +142,7 @@ static void ADS1256_SetChannal(uint8_t _ch);
 static void ADS1256_SetDiffChannal();
 static void ADS1256_WaitDRDY(void);
 static int32_t ADS1256_ReadData(void);
-void Save_Data(int32_t data) ;
+void Save_Data(int32_t data, int for_count) ;
 
 int32_t ADS1256_GetAdc(uint8_t _ch);
 void ADS1256_ISR(void);
@@ -482,7 +482,7 @@ static int32_t ADS1256_ReadData(void){
 //	parameter: udata
 //	The return value:  NULL*/
 //---------------------------------------------------------------------------------------------------------
-void Save_Data(int32_t data){
+void Save_Data(int32_t data, int for_count){
 
 	datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 	if (data < 0){
@@ -493,7 +493,7 @@ void Save_Data(int32_t data){
 	else{
 		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
 	}
-	if (i == 7) {
+	if (for_count == 7) {
 		fprintf(datos0, "\n") ;
 	}
 	fclose(datos0) ;
@@ -558,7 +558,7 @@ int  main(){
 
 					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
-					Save_Data(volts) ;
+					Save_Data(volts, i) ;
 				}	
 				size ++;
 			if(size == datacount) {
