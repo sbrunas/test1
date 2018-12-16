@@ -535,6 +535,7 @@ int  main(){
     uint8_t ch_num = 0 ;
 	uint32_t i;
 //BUFFER---------------------------------------------------------------------------------------------------
+	int32_t adc[3] ;
 	uint32_t size = 0 ;
 	uint32_t datacount ;
 	uint32_t datatime ;
@@ -634,9 +635,12 @@ int  main(){
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
 					
-				ch0[size] = ADS1256_GetAdc(ch_num) ;
-	            ch1[size] = ADS1256_GetAdc(ch_num+1) ;
-	            ch2[size] = ADS1256_GetAdc(ch_num+2) ;
+				for (i=0; i < 3; i++){
+					adc[i] = ADS1256_GetAdc(i) ;
+				}
+				ch0[size] = adc[0] * 100/167 ;
+	            ch1[size] = adc[0] * 100/167 ;
+	            ch2[size] = adc[0] * 100/167 ;
 	            size++ ;
 				
 				if(size == datacount) {
@@ -651,7 +655,7 @@ int  main(){
 		fflush(stdout) ;
 		for (i=0; i < size; i++){
 		//	printf("data to buffer %d \n", i);
-			ADS1256_SaveData(ch0[i]*100/167, ch1[i]*100/167, ch2[i]*100/167) ;
+			ADS1256_SaveData(ch0[i], ch1[i], ch2[i]) ;
 		}
 		fclose(datos0) ;
 		fclose(datos1) ;
