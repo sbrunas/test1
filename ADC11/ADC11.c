@@ -557,13 +557,27 @@ int  main(){
 		printf("while\n") ;
 		while(1){
 	    	while((ADS1256_Scan() == 0)) ;
-					
+				FILE *datos0 ;
+				datos0 = fopen("sen0.txt", "a+") ; //open the txt file in writing mode and write after the last line
 				for (i = 0; i < ch_num; i++){
 
 					adc[i] = ADS1256_GetAdc(ch_num) ;
 					volts = adc[i] * 100/167 ;
-					Save_Data(volts, i) ;
-				}	
+					//Save_Data(volts, i) ;
+
+					if (data < 0){
+									
+						data = -data ;
+						fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
+					}		
+					else{
+						fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
+					}
+					if (for_count == 7) {
+						fprintf(datos0, "\n") ;
+					}
+				}
+				fclose(datos0) ;	
 				size ++;
 				if(size == datacount) {
 	        		printf ("buffer is full\n") ;
