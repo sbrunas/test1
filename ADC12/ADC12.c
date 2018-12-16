@@ -552,7 +552,7 @@ int  main(){
 	}
   	/* ch points to a valid block of memory.
      clearing block. */
-  	memset(ch0, 0, sizeof(int32_t)*datacount);
+  	memset(ch0, 0.0, sizeof(int32_t)*datacount);
 
     if (!bcm2835_init())
     	return 1;
@@ -564,7 +564,7 @@ int  main(){
 	}
   	/* ch points to a valid block of memory.
      clearing block. */
-  	memset(ch1, 0, sizeof(int32_t)*datacount);
+  	memset(ch1, 0.0, sizeof(int32_t)*datacount);
 
     if (!bcm2835_init())
     	return 1;
@@ -576,7 +576,7 @@ int  main(){
 	}
   	/* ch points to a valid block of memory.
      clearing block. */
-  	memset(ch2, 0, sizeof(int32_t)*datacount);
+  	memset(ch2, 0.0, sizeof(int32_t)*datacount);
 
     if (!bcm2835_init())
     	return 1;	
@@ -648,6 +648,7 @@ int  main(){
 		}//while(1)
 		printf("SPI off\n") ;
 		printf("Saving data...\n") ;
+		fflush(stdout) ;
 		for (i=0; i < size; i++){
 		//	printf("data to buffer %d \n", i);
 			ADS1256_SaveData(ch0[i]*100/167, ch1[i]*100/167, ch2[i]*100/167) ;
