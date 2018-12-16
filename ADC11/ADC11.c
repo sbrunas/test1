@@ -488,10 +488,10 @@ static void Save_Data(int32_t data, int for_count){
 	if (data < 0){
 					
 		data = -data ;
-		fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
+		//fprintf(datos0,"-%ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;
 	}		
 	else{
-		fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
+		//fprintf(datos0," %ld.%03ld%03ld\t", data /1000000, (data%1000000)/1000, data%1000) ;	
 	}
 	/*if (for_count == 7) {
 		fprintf(datos0, "\n") ;
