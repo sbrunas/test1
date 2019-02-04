@@ -541,7 +541,7 @@ int  main(){
 	uint32_t datatime ;
 	printf("Enter the time in secons for the acquisition: ") ;
 	scanf("%ld", &datatime) ;
-	datacount = datatime * 3750 ; 
+	datacount = datatime * 100 ; 
 	fflush(stdin) ;
 	//pointer for each analog input
 	int32_t *ch0 ; int32_t *ch1 ; int32_t *ch2 ;
@@ -629,7 +629,7 @@ int  main(){
     printf("ADS1256 Ready\n");
     //Single_ended or Differential
     ADS1256_StartScan(Single_ended); 
-    printf("Acquiring %ld samples at 3750 SPS per channel...\n", datacount);
+    printf("Acquiring %ld samples at 100 SPS per channel...\n", datacount);
     fflush(stdout) ;
 //LOOP-----------------------------------------------------------------------------------------------------
 		while(1){
